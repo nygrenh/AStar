@@ -1,0 +1,4 @@
+AStar
+=====
+
+A* pathfinding algorithm
