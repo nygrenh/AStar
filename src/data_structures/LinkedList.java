@@ -2,11 +2,12 @@ package data_structures;
 
 public class LinkedList {
 	private int size;
-	private LinkedListNode head;
+	private LinkedListNode head, tail;
 
 	public LinkedList() {
 		size = 0;
 		head = null;
+		tail = null;
 	}
 
 	public void insert(Node insertee) {
@@ -14,13 +15,10 @@ public class LinkedList {
 		if (head == null) {
 			head = inserteeListNode;
 		} else {
-			LinkedListNode fastForwardNode = head;
-			while (fastForwardNode.getNext() != null) {
-				fastForwardNode = fastForwardNode.getNext();
-			}
-			fastForwardNode.setNext(inserteeListNode);
+			tail.setNext(inserteeListNode);
 		}
 		size++;
+		tail = inserteeListNode;
 	}
 
 	/**
