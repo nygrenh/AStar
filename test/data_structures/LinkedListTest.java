@@ -38,4 +38,26 @@ public class LinkedListTest {
 		assertNull(linkedList.get(-1));
 		assertNull(linkedList.get(3));
 	}
+	
+	@Test
+	public void insertingAtTheBeginningWorks() {
+		Node n = new Node();
+		Node n2 = new Node();
+		linkedList.insertAtTheBeginning(n2);
+		linkedList.insertAtTheBeginning(n);
+		assertEquals(n, linkedList.get(0));
+		assertEquals(n2, linkedList.get(1));
+		assertEquals(2, linkedList.getSize());
+	}
+	
+	@Test
+	public void mixedInsertWorks() {
+		Node n = new Node();
+		Node n2 = new Node();
+		linkedList.insertAtTheBeginning(n2);
+		linkedList.insert(n);
+		assertEquals(n2, linkedList.get(0));
+		assertEquals(n, linkedList.get(1));
+		assertEquals(2, linkedList.getSize());
+	}
 }

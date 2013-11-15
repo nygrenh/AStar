@@ -20,6 +20,16 @@ public class LinkedList {
 		size++;
 		tail = inserteeListNode;
 	}
+	
+	public void insertAtTheBeginning(Node insertee) {
+		LinkedListNode inserteeListNode = new LinkedListNode(insertee);
+		inserteeListNode.setNext(head);
+		head = inserteeListNode;
+		if(tail == null){
+			tail = head;
+		}
+		size++;
+	}
 
 	/**
 	 * Returns the node at the specified index
