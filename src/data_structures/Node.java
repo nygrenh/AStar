@@ -7,12 +7,12 @@ public class Node {
 	
 	public Node() {
 		this(0);
-		cameFrom = null;
-		blocked = false;
 	}
 	
 	public Node(int score){
 		this.score = score;
+		cameFrom = null;
+		blocked = false;
 	}
 	
 	public int getScore() {
