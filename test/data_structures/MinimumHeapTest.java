@@ -30,8 +30,8 @@ public class MinimumHeapTest {
 
 		assertEquals(node3, heap.delete());
 		assertEquals(node5, heap.delete());
-		assertEquals(4, heap.delete().getScore());
-		assertEquals(4, heap.delete().getScore());
+		assertEquals(4, heap.delete().getToStart());
+		assertEquals(4, heap.delete().getToStart());
 		assertEquals(node2, heap.delete());
 	}
 	
@@ -54,7 +54,7 @@ public class MinimumHeapTest {
 		heap.insert(new Node(45));
 		heap.insert(new Node(553));
 		
-		assertEquals(3, heap.delete().getScore());
+		assertEquals(3, heap.delete().getToStart());
 	}
 
 }

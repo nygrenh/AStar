@@ -9,6 +9,7 @@ import java.awt.RenderingHints;
 import javax.swing.JPanel;
 
 import data_structures.Coordinates;
+import data_structures.LinkedList;
 import data_structures.Node;
 
 public class DrawingArea extends JPanel {
@@ -16,6 +17,7 @@ public class DrawingArea extends JPanel {
 	private Node[][] map;
 	private int width, height;
 	Coordinates start, end;
+	private LinkedList path;
 
 	public DrawingArea(Node[][] map, Dimension size) {
 		this.map = map;
@@ -30,8 +32,22 @@ public class DrawingArea extends JPanel {
 		super.paintComponent(g);
 		turnAntiAliasingOn(g);
 		paintGrid(g);
+		if(path!=null){
+			paintPath(g);
+		}
 		paintStart(g);
 		paintEnd(g);
+	}
+
+	private void paintPath(Graphics g) {
+		g.setColor(Color.CYAN);
+		for (int i = 0; i < path.getSize(); i++) {
+			Coordinates coordinates = path.get(i).getCoordinates();
+			int x = coordinates.x * width;
+			int y = coordinates.y * height;
+			g.fillRect(x, y, width -1, height -1);
+		}
+		
 	}
 
 	private void turnAntiAliasingOn(Graphics g) {
@@ -63,7 +79,11 @@ public class DrawingArea extends JPanel {
 				int y = j * height;
 				if (!map[i][j].blocked())
 					g.setColor(Color.WHITE);
-				else
+				if(map[i][j].isEvaluated())
+					g.setColor(Color.BLUE);
+				else if(map[i][j].isInHeap())
+					g.setColor(Color.MAGENTA);
+				if(map[i][j].blocked())
 					g.setColor(Color.LIGHT_GRAY);
 				g.fillRect(x, y, width - 1, height - 1);
 			}
@@ -88,6 +108,10 @@ public class DrawingArea extends JPanel {
 
 	public int height() {
 		return height;
+	}
+	
+	public void setPath(LinkedList path) {
+		this.path = path;
 	}
 
 }

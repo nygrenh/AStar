@@ -30,8 +30,8 @@ public class MinimumHeap {
 	private void heapify(int i) {
 		int left = left(i);
 		int right = right(i);
-		int leftScore = getScore(left);
-		int rightScore = getScore(right);
+		double leftScore = getScore(left);
+		double rightScore = getScore(right);
 
 		if (right <= heapSize && rightScore <= leftScore && rightScore < getScore(i)) {
 			swap(right, i);
@@ -45,9 +45,9 @@ public class MinimumHeap {
 		}
 	}
 
-	private int getScore(int left) {
+	private double getScore(int left) {
 		try {
-			return array[left].getScore();
+			return array[left].getToEnd();
 		} catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
 			return Integer.MAX_VALUE;
 		}
@@ -66,22 +66,25 @@ public class MinimumHeap {
 		array[1] = array[heapSize];
 		heapSize--;
 		heapify(1);
+		min.heapindex = -1;
 		return min;
 	}
 
 	public void insert(Node insertee) {
 		if (heapSize == array.length - 1) {
+			System.err.println("Warning: Heap dropped a node on insert. Consider increasing heap size.");
 			return;
 		}
 		heapSize++;
 		array[heapSize] = insertee;
+		insertee.heapindex = heapSize;
 		travelUpwards(heapSize);
 	}
 
 	/**
 	 * Moves node at index i upwards as long as the heap property is violated
 	 */
-	private void travelUpwards(int i) {
+	public void travelUpwards(int i) {
 		if (i == 1) {
 			return;
 		}
@@ -95,7 +98,9 @@ public class MinimumHeap {
 	private void swap(int i, int j) {
 		Node help = array[i];
 		array[i] = array[j];
+		array[i].heapindex = i;
 		array[j] = help;
+		array[j].heapindex = j;
 	}
 
 	public int getSize() {

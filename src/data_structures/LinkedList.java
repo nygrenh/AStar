@@ -50,6 +50,7 @@ public class LinkedList {
 		}
 		return fastForwardNode.getNode();
 	}
+	
 
 	public int getSize() {
 		return this.size;

@@ -3,6 +3,9 @@ package gui;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import algorithms.AStar;
+import algorithms.Calculations;
+
 import data_structures.Coordinates;
 import data_structures.Node;
 
@@ -23,8 +26,14 @@ public class DrawingAreaMouseListener implements MouseListener {
 		int y = e.getY() / area.height();
 		if (e.getButton() == MouseEvent.BUTTON1)
 			area.setStart(x, y);
-		if (e.getButton() == MouseEvent.BUTTON3)
+		if (e.getButton() == MouseEvent.BUTTON3) {
 			area.setEnd(x, y);
+			AStar aStar = new AStar();
+			Node start = map[area.start.x][area.start.y];
+			Node end = map[area.end.x][area.end.y];
+			area.setPath(aStar.findPath(start, end, map));
+			area.repaint();
+		}
 		if (e.getButton() == MouseEvent.BUTTON2) {
 			map[x][y].toggleBlocked();
 			area.repaint();
@@ -53,9 +62,9 @@ public class DrawingAreaMouseListener implements MouseListener {
 		if (x != lastClick.x || y != lastClick.y) {
 			int i = lastClick.x - 1;
 			while (i != x) {
-				int j = lastClick.y -1;
+				int j = lastClick.y - 1;
 				while (j != y) {
-					changeNodeMode(e, i+1, j+1);
+					changeNodeMode(e, i + 1, j + 1);
 					if (j < y)
 						j++;
 					else
@@ -72,8 +81,7 @@ public class DrawingAreaMouseListener implements MouseListener {
 
 	private void changeNodeMode(MouseEvent e, int i, int j) {
 		try {
-			if (e.getButton() == MouseEvent.BUTTON1
-					&& e.isShiftDown())
+			if (e.getButton() == MouseEvent.BUTTON1 && e.isShiftDown())
 				map[i][j].toggleBlocked();
 			else if (e.getButton() == MouseEvent.BUTTON1) {
 				map[i][j].setBlocked();

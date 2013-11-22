@@ -21,8 +21,8 @@ public class LinkedListTest {
 
 	@Test
 	public void insertingWorks() {
-		Node n = new Node();
-		Node n2 = new Node();
+		Node n = new Node(0);
+		Node n2 = new Node(0);
 		linkedList.insert(n);
 		linkedList.insert(n2);
 		assertEquals(n, linkedList.get(0));
@@ -32,17 +32,17 @@ public class LinkedListTest {
 
 	@Test
 	public void gettingIllegalNodesIsNotPossible() {
-		linkedList.insert(new Node());
-		linkedList.insert(new Node());
-		linkedList.insert(new Node());
+		linkedList.insert(new Node(0));
+		linkedList.insert(new Node(0));
+		linkedList.insert(new Node(0));
 		assertNull(linkedList.get(-1));
 		assertNull(linkedList.get(3));
 	}
 	
 	@Test
 	public void insertingAtTheBeginningWorks() {
-		Node n = new Node();
-		Node n2 = new Node();
+		Node n = new Node(0);
+		Node n2 = new Node(0);
 		linkedList.insertAtTheBeginning(n2);
 		linkedList.insertAtTheBeginning(n);
 		assertEquals(n, linkedList.get(0));
@@ -52,8 +52,8 @@ public class LinkedListTest {
 	
 	@Test
 	public void mixedInsertWorks() {
-		Node n = new Node();
-		Node n2 = new Node();
+		Node n = new Node(0);
+		Node n2 = new Node(0);
 		linkedList.insertAtTheBeginning(n2);
 		linkedList.insert(n);
 		assertEquals(n2, linkedList.get(0));
