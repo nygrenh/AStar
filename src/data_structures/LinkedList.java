@@ -1,6 +1,6 @@
 package data_structures;
 
-public class LinkedList {
+public class LinkedList implements List{
 	private int size;
 	private LinkedListNode head, tail;
 

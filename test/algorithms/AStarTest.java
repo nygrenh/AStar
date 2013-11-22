@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import data_structures.LinkedList;
+import data_structures.List;
 import data_structures.Node;
 
 public class AStarTest {
@@ -23,7 +23,7 @@ private AStar aStar;
 		Node node3 = new Node(0);
 		node3.setCameFrom(node2);
 		node2.setCameFrom(node);
-		LinkedList path = aStar.reconstructPath(node3);
+		List path = aStar.reconstructPath(node3);
 		assertEquals(node, path.get(0));
 		assertEquals(node2, path.get(1));
 		assertEquals(node3, path.get(2));

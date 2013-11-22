@@ -1,13 +1,14 @@
 package algorithms;
 
 import data_structures.LinkedList;
+import data_structures.List;
 import data_structures.MinimumHeap;
 import data_structures.Node;
 
 public class AStar {
 	public static final boolean diagonalMovement = true;
 
-	public LinkedList findPath(Node start, Node end, Node[][] map) {
+	public List findPath(Node start, Node end, Node[][] map) {
 		resetHelpVariables(map);
 		MinimumHeap heap = new MinimumHeap(map.length * map[0].length);
 		heap.insert(start);
@@ -73,7 +74,7 @@ public class AStar {
 
 
 
-	public LinkedList reconstructPath(Node end) {
+	public List reconstructPath(Node end) {
 		LinkedList returnee = new LinkedList();
 		Node backtrackNode = end;
 		while (backtrackNode != null) {

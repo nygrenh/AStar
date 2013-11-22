@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import data_structures.Coordinates;
 import data_structures.LinkedList;
+import data_structures.List;
 import data_structures.Node;
 
 public class DrawingArea extends JPanel {
@@ -17,7 +18,7 @@ public class DrawingArea extends JPanel {
 	private Node[][] map;
 	private int width, height;
 	Coordinates start, end;
-	private LinkedList path;
+	private List path;
 
 	public DrawingArea(Node[][] map, Dimension size) {
 		this.map = map;
@@ -110,7 +111,7 @@ public class DrawingArea extends JPanel {
 		return height;
 	}
 	
-	public void setPath(LinkedList path) {
+	public void setPath(List path) {
 		this.path = path;
 	}
 
