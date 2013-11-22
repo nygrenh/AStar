@@ -18,9 +18,9 @@ private AStar aStar;
 
 	@Test
 	public void reconstructPathTest() {
-		Node node = new Node(0);
-		Node node2 = new Node(0);
-		Node node3 = new Node(0);
+		Node node = new Node();
+		Node node2 = new Node();
+		Node node3 = new Node();
 		node3.setCameFrom(node2);
 		node2.setCameFrom(node);
 		List path = aStar.reconstructPath(node3);

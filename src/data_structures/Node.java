@@ -8,8 +8,18 @@ public class Node {
 	private Coordinates coordinates;
 	
 	public Node(Coordinates coordinates) {
-		this(Integer.MAX_VALUE);
+		this();
 		this.coordinates = coordinates;
+	}
+	
+	public Node(){
+		this.toStart = Integer.MAX_VALUE;
+		this.toEnd = Integer.MAX_VALUE;
+		cameFrom = null;
+		blocked = false;
+		evaluated = false;
+		inHeap = false;
+		heapindex = -1;
 	}
 	
 	public Coordinates getCoordinates() {
@@ -20,15 +30,6 @@ public class Node {
 		this.coordinates = coordinates;
 	}
 
-	public Node(int score){
-		this.toStart = score;
-		this.toEnd = Integer.MAX_VALUE;
-		cameFrom = null;
-		blocked = false;
-		evaluated = false;
-		inHeap = false;
-		heapindex = -1;
-	}
 	
 	public int getToEnd() {
 		return toEnd;
