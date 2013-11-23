@@ -54,7 +54,7 @@ public class AStar {
 			if(neighbor.blocked()){
 				return;
 			}
-			int toStartCandidate = current.getToStart() + Calculations.distanceBetween(current, neighbor);
+			int toStartCandidate = current.getToStart() + 1;
 			int toEndCandidate = Calculations.distanceBetween(neighbor, end) + toStartCandidate;
 			
 			if(toEndCandidate < neighbor.getToEnd()){
