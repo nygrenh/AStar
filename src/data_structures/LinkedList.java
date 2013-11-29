@@ -1,6 +1,6 @@
 package data_structures;
 
-public class LinkedList implements List{
+public class LinkedList implements List {
 	private int size;
 	private LinkedListNode head, tail;
 
@@ -20,12 +20,12 @@ public class LinkedList implements List{
 		size++;
 		tail = inserteeListNode;
 	}
-	
+
 	public void insertAtTheBeginning(Node insertee) {
 		LinkedListNode inserteeListNode = new LinkedListNode(insertee);
 		inserteeListNode.setNext(head);
 		head = inserteeListNode;
-		if(tail == null){
+		if (tail == null) {
 			tail = head;
 		}
 		size++;
@@ -33,6 +33,7 @@ public class LinkedList implements List{
 
 	/**
 	 * Returns the node at the specified index
+	 * 
 	 * @return Node, if it exits, null otherwise
 	 */
 	public Node get(int index) {
@@ -50,9 +51,18 @@ public class LinkedList implements List{
 		}
 		return fastForwardNode.getNode();
 	}
-	
 
 	public int getSize() {
 		return this.size;
+	}
+
+	@Override
+	public Node delete() {
+		Node returnee = get(0);
+		if (head != null) {
+			head = head.getNext();
+		}
+		size--;
+		return returnee;
 	}
 }

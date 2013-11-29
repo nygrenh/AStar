@@ -6,7 +6,6 @@ import data_structures.MinimumHeap;
 import data_structures.Node;
 
 public class AStar {
-	public static final boolean diagonalMovement = false;
 
 	public List findPath(Node start, Node end, Node[][] map) {
 		resetHelpVariables(map);
@@ -21,21 +20,63 @@ public class AStar {
 				return reconstructPath(end);
 			}
 			current.setEvaluated(true); // for visualization purposes
-			processNeighbour(1, 0, current, end, map, heap);
-			processNeighbour(0, 1, current, end, map, heap);
-			processNeighbour(-1, 0, current, end, map, heap);
-			processNeighbour(0, -1, current, end, map, heap);
-			
-			if(diagonalMovement){
-				processNeighbour(1, 1, current, end, map, heap);
-				processNeighbour(-1, -1, current, end, map, heap);
-				processNeighbour(-1, 1, current, end, map, heap);
-				processNeighbour(1, -1, current, end, map, heap);
-			}
+			List neighbours = getNeighbours(current, map);
+
+			do {
+				Node neighbor = neighbours.delete();
+				if (neighbor.blocked()) {
+					continue;
+				}
+				int toStartCandidate = current.getToStart() + movementCost(current, neighbor);
+				int toEndCandidate = Calculations.distanceBetween(neighbor, end) + toStartCandidate;
+
+				if (toEndCandidate < neighbor.getToEnd()) {
+					neighbor.setCameFrom(current);
+					neighbor.setToStart(toStartCandidate);
+					neighbor.setToEnd(toEndCandidate);
+					if (!neighbor.isInHeap()) {
+						heap.insert(neighbor);
+						neighbor.setIsInHeap(true);
+					} else { // since this node's score has decreased, the heap
+								// property might be broken
+						heap.travelUpwards(neighbor.heapindex);
+					}
+				}
+			} while (neighbours.getSize() != 0);
 
 		}
 		System.out.println("Failure");
 		return null;
+	}
+
+	private int movementCost(Node current, Node neighbor) {
+		if (Calculations.distanceBetween(current, neighbor) == 2) {
+			return 14; // square root(10^2 + 10^2) ≈ 14
+		}
+		return 10;
+	}
+
+	private List getNeighbours(Node n, Node[][] map) {
+		List returnee = new LinkedList();
+		int x = n.getCoordinates().x;
+		int y = n.getCoordinates().y;
+		if (x != 0)
+			returnee.insert(map[x - 1][y]);
+		if (y != 0)
+			returnee.insert(map[x][y - 1]);
+		if (x != map.length - 1)
+			returnee.insert(map[x + 1][y]);
+		if (y != map[0].length - 1)
+			returnee.insert(map[x][y + 1]);
+		if (x != map.length - 1 && y != map[0].length - 1)
+			returnee.insert(map[x + 1][y + 1]);
+		if (x != 0 && y != 0)
+			returnee.insert(map[x - 1][y - 1]);
+		if (x != map.length - 1 && y != 0)
+			returnee.insert(map[x + 1][y - 1]);
+		if (x != 0 && y != map[0].length - 1)
+			returnee.insert(map[x - 1][y + 1]);
+		return returnee;
 	}
 
 	private void resetHelpVariables(Node[][] map) {
@@ -43,32 +84,6 @@ public class AStar {
 			for (Node node : nodes) {
 				node.reset();
 			}
-		}
-	}
-
-	private void processNeighbour(int dx, int dy, Node current, Node end, Node[][] map, MinimumHeap heap) {
-		int x = current.getCoordinates().x + dx;
-		int y = current.getCoordinates().y + dy;
-		try {
-			Node neighbor = map[x][y];
-			if(neighbor.blocked()){
-				return;
-			}
-			int toStartCandidate = current.getToStart() + 1;
-			int toEndCandidate = Calculations.distanceBetween(neighbor, end) + toStartCandidate;
-			
-			if(toEndCandidate < neighbor.getToEnd()){
-				neighbor.setCameFrom(current);
-				neighbor.setToStart(toStartCandidate);
-				neighbor.setToEnd(toEndCandidate);
-				if(!neighbor.isInHeap()){
-					heap.insert(neighbor);
-					neighbor.setIsInHeap(true);
-				} else { // since this node's score has decreased, the heap property might be broken
-					heap.travelUpwards(neighbor.heapindex);
-				}
-			}
-		} catch (ArrayIndexOutOfBoundsException e) {
 		}
 	}
 
