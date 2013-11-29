@@ -22,7 +22,7 @@ public class AStar {
 			current.setEvaluated(true); // for visualization purposes
 			List neighbours = getNeighbours(current, map);
 
-			do {
+			while (neighbours.getSize() > 0) {
 				AStarNode neighbor = neighbours.delete();
 				if (neighbor.blocked()) {
 					continue;
@@ -42,7 +42,7 @@ public class AStar {
 						heap.travelUpwards(neighbor.heapindex);
 					}
 				}
-			} while (neighbours.getSize() != 0);
+			}
 
 		}
 		return null;

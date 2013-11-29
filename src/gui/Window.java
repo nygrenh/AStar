@@ -9,7 +9,6 @@ import javax.swing.WindowConstants;
 
 import data_structures.AStarNode;
 import data_structures.Coordinates;
-import data_structures.Node;
 
 public class Window implements Runnable{
 
@@ -29,7 +28,7 @@ public class Window implements Runnable{
 	}
 	
 	private void createComponents(Container contentPane) {
-		AStarNode map[][] = new AStarNode[200][200];
+		AStarNode map[][] = new AStarNode[20][20];
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[0].length; j++) {
 				Coordinates coordinates = new Coordinates(i, j);

@@ -10,13 +10,12 @@ import javax.swing.JPanel;
 
 import data_structures.AStarNode;
 import data_structures.Coordinates;
-import data_structures.LinkedList;
 import data_structures.List;
-import data_structures.Node;
+
 
 public class DrawingArea extends JPanel {
 	
-	private static final boolean visualization = false;
+	private static final boolean visualization = true;
 
 	private AStarNode[][] map;
 	private int width, height;

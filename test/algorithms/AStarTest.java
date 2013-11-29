@@ -8,7 +8,6 @@ import org.junit.Test;
 import data_structures.AStarNode;
 import data_structures.Coordinates;
 import data_structures.List;
-import data_structures.Node;
 
 public class AStarTest {
 private AStar aStar;

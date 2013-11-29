@@ -4,11 +4,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import algorithms.AStar;
-import algorithms.Calculations;
 
 import data_structures.AStarNode;
 import data_structures.Coordinates;
-import data_structures.Node;
 
 public class DrawingAreaMouseListener implements MouseListener {
 
