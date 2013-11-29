@@ -6,16 +6,17 @@ import java.awt.event.MouseListener;
 import algorithms.AStar;
 import algorithms.Calculations;
 
+import data_structures.AStarNode;
 import data_structures.Coordinates;
 import data_structures.Node;
 
 public class DrawingAreaMouseListener implements MouseListener {
 
 	private DrawingArea area;
-	private Node[][] map;
+	private AStarNode[][] map;
 	private Coordinates lastClick;
 
-	public DrawingAreaMouseListener(DrawingArea area, Node[][] map) {
+	public DrawingAreaMouseListener(DrawingArea area, AStarNode[][] map) {
 		this.area = area;
 		this.map = map;
 	}
@@ -38,8 +39,8 @@ public class DrawingAreaMouseListener implements MouseListener {
 	private void update() {
 		if (area.start.x != -1 && area.end.x != -1) {
 			AStar aStar = new AStar();
-			Node start = map[area.start.x][area.start.y];
-			Node end = map[area.end.x][area.end.y];
+			AStarNode start = map[area.start.x][area.start.y];
+			AStarNode end = map[area.end.x][area.end.y];
 			area.setPath(aStar.findPath(start, end, map));
 		}
 		area.repaint();

@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 
+import data_structures.AStarNode;
 import data_structures.Coordinates;
 import data_structures.Node;
 
@@ -28,11 +29,11 @@ public class Window implements Runnable{
 	}
 	
 	private void createComponents(Container contentPane) {
-		Node map[][] = new Node[20][20];
+		AStarNode map[][] = new AStarNode[200][200];
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[0].length; j++) {
 				Coordinates coordinates = new Coordinates(i, j);
-				map[i][j] = new Node(coordinates);
+				map[i][j] = new AStarNode(coordinates);
 			}
 		}
 		DrawingArea drawingArea = new DrawingArea(map, dimension);

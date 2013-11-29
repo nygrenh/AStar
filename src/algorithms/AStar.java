@@ -3,18 +3,18 @@ package algorithms;
 import data_structures.LinkedList;
 import data_structures.List;
 import data_structures.MinimumHeap;
-import data_structures.Node;
+import data_structures.AStarNode;
 
 public class AStar {
 
-	public List findPath(Node start, Node end, Node[][] map) {
+	public List findPath(AStarNode start, AStarNode end, AStarNode[][] map) {
 		resetHelpVariables(map);
 		MinimumHeap heap = new MinimumHeap(map.length * map[0].length);
 		heap.insert(start);
 		start.setToStart(0);
 		start.setToEnd(Calculations.distanceBetween(start, end));
 		while (heap.getSize() > 0) {
-			Node current = heap.delete();
+			AStarNode current = heap.delete();
 			current.setIsInHeap(false);
 			if (current == end) {
 				return reconstructPath(end);
@@ -23,7 +23,7 @@ public class AStar {
 			List neighbours = getNeighbours(current, map);
 
 			do {
-				Node neighbor = neighbours.delete();
+				AStarNode neighbor = neighbours.delete();
 				if (neighbor.blocked()) {
 					continue;
 				}
@@ -49,14 +49,14 @@ public class AStar {
 		return null;
 	}
 
-	private int movementCost(Node current, Node neighbor) {
+	private int movementCost(AStarNode current, AStarNode neighbor) {
 		if (Calculations.distanceBetween(current, neighbor) == 2) {
 			return 14; // square root(10^2 + 10^2) ≈ 14
 		}
 		return 10;
 	}
 
-	private List getNeighbours(Node n, Node[][] map) {
+	private List getNeighbours(AStarNode n, AStarNode[][] map) {
 		List returnee = new LinkedList();
 		int x = n.getCoordinates().x;
 		int y = n.getCoordinates().y;
@@ -79,20 +79,20 @@ public class AStar {
 		return returnee;
 	}
 
-	private void resetHelpVariables(Node[][] map) {
-		for (Node[] nodes : map) {
-			for (Node node : nodes) {
+	private void resetHelpVariables(AStarNode[][] map) {
+		for (AStarNode[] nodes : map) {
+			for (AStarNode node : nodes) {
 				node.reset();
 			}
 		}
 	}
 
-	public List reconstructPath(Node end) {
+	public List reconstructPath(AStarNode end) {
 		LinkedList returnee = new LinkedList();
-		Node backtrackNode = end;
-		while (backtrackNode != null) {
-			returnee.insertAtTheBeginning(backtrackNode);
-			backtrackNode = backtrackNode.cameFrom();
+		AStarNode backtrackAStarNode = end;
+		while (backtrackAStarNode != null) {
+			returnee.insertAtTheBeginning(backtrackAStarNode);
+			backtrackAStarNode = (AStarNode) backtrackAStarNode.cameFrom();
 		}
 		return returnee;
 	}

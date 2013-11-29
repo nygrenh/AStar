@@ -4,11 +4,11 @@ package data_structures;
  * Binary minimum heap.
  */
 public class MinimumHeap {
-	private Node[] array;
+	private AStarNode[] array;
 	private int heapSize;
 
 	public MinimumHeap(int size) {
-		array = new Node[size + 1];
+		array = new AStarNode[size + 1];
 		heapSize = 0;
 	}
 
@@ -58,11 +58,11 @@ public class MinimumHeap {
 	 * 
 	 * @return the deleted node
 	 */
-	public Node delete() {
+	public AStarNode delete() {
 		if (heapSize == 0) {
 			return null;
 		}
-		Node min = array[1];
+		AStarNode min = array[1];
 		array[1] = array[heapSize];
 		heapSize--;
 		heapify(1);
@@ -70,7 +70,7 @@ public class MinimumHeap {
 		return min;
 	}
 
-	public void insert(Node insertee) {
+	public void insert(AStarNode insertee) {
 		if (heapSize == array.length - 1) {
 			System.err.println("Warning: Heap dropped a node on insert. Consider increasing heap size.");
 			return;
@@ -96,7 +96,7 @@ public class MinimumHeap {
 	}
 
 	private void swap(int i, int j) {
-		Node help = array[i];
+		AStarNode help = array[i];
 		array[i] = array[j];
 		array[i].heapindex = i;
 		array[j] = help;

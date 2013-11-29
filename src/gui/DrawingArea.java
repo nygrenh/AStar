@@ -8,6 +8,7 @@ import java.awt.RenderingHints;
 
 import javax.swing.JPanel;
 
+import data_structures.AStarNode;
 import data_structures.Coordinates;
 import data_structures.LinkedList;
 import data_structures.List;
@@ -17,12 +18,12 @@ public class DrawingArea extends JPanel {
 	
 	private static final boolean visualization = false;
 
-	private Node[][] map;
+	private AStarNode[][] map;
 	private int width, height;
 	Coordinates start, end;
 	private List path;
 
-	public DrawingArea(Node[][] map, Dimension size) {
+	public DrawingArea(AStarNode[][] map, Dimension size) {
 		this.map = map;
 		this.width = (int) (size.getWidth() / map[0].length);
 		this.height = (int) (size.getHeight() / map.length);
