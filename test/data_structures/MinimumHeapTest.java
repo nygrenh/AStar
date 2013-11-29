@@ -15,16 +15,16 @@ public class MinimumHeapTest {
 	}
 
 	@Test
-	public void heapGivesNodesInRightOrder() {
-		Node node1 = new Node();
+	public void heapGivesAStarNodesInRightOrder() {
+		AStarNode node1 = new AStarNode(new Coordinates(0, 0));
 		node1.setToEnd(4);
-		Node node2 = new Node();
+		AStarNode node2 = new AStarNode(new Coordinates(0, 0));
 		node2.setToEnd(55);
-		Node node3 = new Node();
+		AStarNode node3 = new AStarNode(new Coordinates(0, 0));
 		node3.setToEnd(1);
-		Node node4 = new Node();
+		AStarNode node4 = new AStarNode(new Coordinates(0, 0));
 		node4.setToEnd(4);
-		Node node5 = new Node();
+		AStarNode node5 = new AStarNode(new Coordinates(0, 0));
 		node5.setToEnd(3);
 
 		heap.insert(node1);
@@ -35,8 +35,8 @@ public class MinimumHeapTest {
 
 		assertEquals(node3, heap.delete());
 		assertEquals(node5, heap.delete());
-		assertEquals(4, heap.delete().getToEnd());
-		assertEquals(4, heap.delete().getToEnd());
+		assertEquals(4, heap.delete().getToEnd(), 0.1);
+		assertEquals(4, heap.delete().getToEnd(), 0.1);
 		assertEquals(node2, heap.delete());
 	}
 
@@ -48,17 +48,17 @@ public class MinimumHeapTest {
 
 	@Test
 	public void deletingWorksWhenHeapIsFull() {
-		Node n = new Node();
+		AStarNode n = new AStarNode(new Coordinates(0, 0));
 		heap.insert(n);
-		heap.insert(new Node());
-		heap.insert(new Node());
-		heap.insert(new Node());
-		heap.insert(new Node());
-		heap.insert(new Node());
-		heap.insert(new Node());
-		heap.insert(new Node());
-		heap.insert(new Node());
-		heap.insert(new Node());
+		heap.insert(new AStarNode(new Coordinates(0, 0)));
+		heap.insert(new AStarNode(new Coordinates(0, 0)));
+		heap.insert(new AStarNode(new Coordinates(0, 0)));
+		heap.insert(new AStarNode(new Coordinates(0, 0)));
+		heap.insert(new AStarNode(new Coordinates(0, 0)));
+		heap.insert(new AStarNode(new Coordinates(0, 0)));
+		heap.insert(new AStarNode(new Coordinates(0, 0)));
+		heap.insert(new AStarNode(new Coordinates(0, 0)));
+		heap.insert(new AStarNode(new Coordinates(0, 0)));
 
 		assertEquals(n, heap.delete());
 	}

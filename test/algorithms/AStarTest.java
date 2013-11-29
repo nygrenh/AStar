@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import data_structures.AStarNode;
+import data_structures.Coordinates;
 import data_structures.List;
 import data_structures.Node;
 
@@ -18,9 +20,9 @@ private AStar aStar;
 
 	@Test
 	public void reconstructPathTest() {
-		Node node = new Node();
-		Node node2 = new Node();
-		Node node3 = new Node();
+		AStarNode node = new AStarNode(new Coordinates(0, 0));
+		AStarNode node2 = new AStarNode(new Coordinates(0, 0));
+		AStarNode node3 = new AStarNode(new Coordinates(0, 0));
 		node3.setCameFrom(node2);
 		node2.setCameFrom(node);
 		List path = aStar.reconstructPath(node3);
