@@ -30,8 +30,8 @@ public class MinimumHeap {
 	private void heapify(int i) {
 		int left = left(i);
 		int right = right(i);
-		int leftScore = getScore(left);
-		int rightScore = getScore(right);
+		double leftScore = getScore(left);
+		double rightScore = getScore(right);
 
 		if (right <= heapSize && rightScore <= leftScore && rightScore < getScore(i)) {
 			swap(right, i);
@@ -45,7 +45,7 @@ public class MinimumHeap {
 		}
 	}
 
-	private int getScore(int left) {
+	private double getScore(int left) {
 		try {
 			return array[left].getToEnd();
 		} catch (NullPointerException | ArrayIndexOutOfBoundsException e) {

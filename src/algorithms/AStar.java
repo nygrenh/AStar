@@ -27,8 +27,8 @@ public class AStar {
 				if (neighbor.blocked()) {
 					continue;
 				}
-				int toStartCandidate = current.getToStart() + movementCost(current, neighbor);
-				int toEndCandidate = Calculations.distanceBetween(neighbor, end) + toStartCandidate;
+				double toStartCandidate = current.getToStart() + movementCost(current, neighbor);
+				double toEndCandidate = Calculations.distanceBetween(neighbor, end) + toStartCandidate;
 
 				if (toEndCandidate < neighbor.getToEnd()) {
 					neighbor.setCameFrom(current);
@@ -45,15 +45,14 @@ public class AStar {
 			} while (neighbours.getSize() != 0);
 
 		}
-		System.out.println("Failure");
 		return null;
 	}
 
-	private int movementCost(AStarNode current, AStarNode neighbor) {
+	private double movementCost(AStarNode current, AStarNode neighbor) {
 		if (Calculations.distanceBetween(current, neighbor) == 2) {
-			return 14; // square root(10^2 + 10^2) ≈ 14
+			return 1.414;
 		}
-		return 10;
+		return 1;
 	}
 
 	private List getNeighbours(AStarNode n, AStarNode[][] map) {

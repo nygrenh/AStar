@@ -2,15 +2,15 @@ package data_structures;
 
 public class AStarNode extends Node {
 	
-	private int toStart, toEnd;
+	private double toStart, toEnd;
 	public int heapindex;
 	private AStarNode cameFrom;
 	private boolean blocked, evaluated, inHeap;
 
 	public AStarNode(Coordinates coordinates) {
 		super(coordinates);
-		toStart = Integer.MAX_VALUE;
-		toEnd = Integer.MAX_VALUE;
+		toStart = Double.MAX_VALUE;
+		toEnd = Double.MAX_VALUE;
 		cameFrom = null;
 		blocked = false;
 		evaluated = false;
@@ -19,19 +19,19 @@ public class AStarNode extends Node {
 	}
 	
 	
-	public int getToEnd() {
+	public double getToEnd() {
 		return toEnd;
 	}
 
-	public void setToEnd(int score) {
+	public void setToEnd(double score) {
 		this.toEnd = score;
 	}
 
-	public int getToStart() {
+	public double getToStart() {
 		return toStart;
 	}
 	
-	public void setToStart(int score){
+	public void setToStart(double score){
 		this.toStart = score;
 	}
 	
