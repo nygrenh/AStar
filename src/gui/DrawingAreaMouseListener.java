@@ -28,16 +28,21 @@ public class DrawingAreaMouseListener implements MouseListener {
 			area.setStart(x, y);
 		if (e.getButton() == MouseEvent.BUTTON3) {
 			area.setEnd(x, y);
+		}
+		if (e.getButton() == MouseEvent.BUTTON2) {
+			map[x][y].toggleBlocked();
+		}
+		update();
+	}
+
+	private void update() {
+		if (area.start.x != -1 && area.end.x != -1) {
 			AStar aStar = new AStar();
 			Node start = map[area.start.x][area.start.y];
 			Node end = map[area.end.x][area.end.y];
 			area.setPath(aStar.findPath(start, end, map));
-			area.repaint();
 		}
-		if (e.getButton() == MouseEvent.BUTTON2) {
-			map[x][y].toggleBlocked();
-			area.repaint();
-		}
+		area.repaint();
 	}
 
 	@Override
@@ -76,7 +81,7 @@ public class DrawingAreaMouseListener implements MouseListener {
 					i--;
 			}
 		}
-		area.repaint();
+		update();
 	}
 
 	private void changeNodeMode(MouseEvent e, int i, int j) {

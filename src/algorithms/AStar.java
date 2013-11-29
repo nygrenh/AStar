@@ -6,7 +6,7 @@ import data_structures.MinimumHeap;
 import data_structures.Node;
 
 public class AStar {
-	public static final boolean diagonalMovement = true;
+	public static final boolean diagonalMovement = false;
 
 	public List findPath(Node start, Node end, Node[][] map) {
 		resetHelpVariables(map);
@@ -71,8 +71,6 @@ public class AStar {
 		} catch (ArrayIndexOutOfBoundsException e) {
 		}
 	}
-
-
 
 	public List reconstructPath(Node end) {
 		LinkedList returnee = new LinkedList();

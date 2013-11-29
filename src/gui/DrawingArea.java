@@ -14,6 +14,8 @@ import data_structures.List;
 import data_structures.Node;
 
 public class DrawingArea extends JPanel {
+	
+	private static final boolean visualization = false;
 
 	private Node[][] map;
 	private int width, height;
@@ -80,9 +82,9 @@ public class DrawingArea extends JPanel {
 				int y = j * height;
 				if (!map[i][j].blocked())
 					g.setColor(Color.WHITE);
-				if(map[i][j].isEvaluated())
+				if(map[i][j].isEvaluated() && visualization)
 					g.setColor(Color.BLUE);
-				else if(map[i][j].isInHeap())
+				else if(map[i][j].isInHeap() && visualization)
 					g.setColor(Color.MAGENTA);
 				if(map[i][j].blocked())
 					g.setColor(Color.LIGHT_GRAY);
@@ -96,6 +98,7 @@ public class DrawingArea extends JPanel {
 		start.y = y;
 		repaint();
 	}
+	
 
 	public void setEnd(int x, int y) {
 		end.x = x;
