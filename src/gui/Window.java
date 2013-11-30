@@ -8,8 +8,6 @@ import javax.swing.WindowConstants;
 
 import algorithms.AStar;
 
-
-import data_structures.AStarNode;
 import data_structures.Coordinates;
 import data_structures.Node;
 

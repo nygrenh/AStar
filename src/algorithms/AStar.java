@@ -8,7 +8,7 @@ import data_structures.Node;
 import data_structures.NodeScorer;
 
 public class AStar {
-	
+
 	private AStarNode[][] helpMap;
 
 	public List findPath(Node start, Node end, Node[][] map) {
@@ -23,12 +23,13 @@ public class AStar {
 			if (current == end) {
 				return reconstructPath(end);
 			}
-			getHelpNode(current).setEvaluated(true); // for visualization purposes
+			getHelpNode(current).setEvaluated(true); // for visualization
+														// purposes
 			List neighbours = getNeighbours(current, map);
 
 			while (neighbours.getSize() > 0) {
 				Node neighbor = neighbours.delete();
-				if (getHelpNode(neighbor).blocked()) {
+				if (neighbor.getMovementPenalty() == Double.MAX_VALUE) {
 					continue;
 				}
 				double toStartCandidate = getHelpNode(current).getToStart() + movementCost(current, neighbor);
@@ -53,10 +54,12 @@ public class AStar {
 	}
 
 	private double movementCost(Node current, Node neighbor) {
-		if (Calculations.distanceBetween(current, neighbor) == 2) {
-			return 1.414;
-		}
-		return 1;
+		double cost = 1;
+		cost += current.getMovementPenalty() / 2;
+		cost += neighbor.getMovementPenalty() / 2;
+		if (Calculations.distanceBetween(current, neighbor) == 2)
+			cost *= 1.414214;
+		return cost;
 	}
 
 	private List getNeighbours(Node n, Node[][] map) {
@@ -81,9 +84,9 @@ public class AStar {
 			returnee.insert(map[x - 1][y + 1]);
 		return returnee;
 	}
-	
-	public AStarNode getHelpNode(Node n) throws ArrayIndexOutOfBoundsException{
-		if(helpMap == null){
+
+	public AStarNode getHelpNode(Node n) throws ArrayIndexOutOfBoundsException {
+		if (helpMap == null) {
 			return null;
 		}
 		int x = n.getCoordinates().x;

@@ -98,6 +98,9 @@ public class MinimumHeap {
 	}
 
 	private void swap(int i, int j) {
+		if(i<1 || j < 1){
+			return;
+		}
 		Node help = array[i];
 		array[i] = array[j];
 		updateHeapIndex(i, array[i]);

@@ -8,6 +8,7 @@ import algorithms.AStar;
 import data_structures.AStarNode;
 import data_structures.Coordinates;
 import data_structures.Node;
+import data_structures.NodeType;
 
 public class DrawingAreaMouseListener implements MouseListener {
 
@@ -32,7 +33,8 @@ public class DrawingAreaMouseListener implements MouseListener {
 			area.setEnd(x, y);
 		}
 		if (e.getButton() == MouseEvent.BUTTON2) {
-			aStar.getHelpNode(map[x][y]).toggleBlocked();
+			//TODO Do something to this
+			//aStar.getHelpNode(map[x][y]).toggleBlocked();
 		}
 		update();
 	}
@@ -88,13 +90,14 @@ public class DrawingAreaMouseListener implements MouseListener {
 
 	private void changeNodeMode(MouseEvent e, int i, int j) {
 		try {
-			if (e.getButton() == MouseEvent.BUTTON1 && e.isShiftDown())
-				aStar.getHelpNode(map[i][j]).toggleBlocked();
-			else if (e.getButton() == MouseEvent.BUTTON1) {
-				aStar.getHelpNode(map[i][j]).setBlocked();
+			if (e.getButton() == MouseEvent.BUTTON1) {
+				map[i][j].setType(NodeType.wall);
+			}
+			if (e.getButton() == MouseEvent.BUTTON2) {
+				map[i][j].setType(NodeType.sand);
 			}
 			if (e.getButton() == MouseEvent.BUTTON3) {
-				aStar.getHelpNode(map[i][j]).setUnblocked();
+				map[i][j].setType(NodeType.normal);
 			}
 		} catch (ArrayIndexOutOfBoundsException e1) {
 		}

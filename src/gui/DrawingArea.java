@@ -52,7 +52,7 @@ public class DrawingArea extends JPanel {
 			Coordinates coordinates = path.get(i).getCoordinates();
 			int x = coordinates.x * width;
 			int y = coordinates.y * height;
-			g.fillRect(x, y, width - 1, height - 1);
+			g.fillRect(x + width * 1/4, y + height * 1/4, width * 2/4, height * 2/4);
 		}
 
 	}
@@ -91,8 +91,11 @@ public class DrawingArea extends JPanel {
 						g.setColor(Color.BLUE);
 					else if (helpNode.isInHeap() && visualization)
 						g.setColor(Color.MAGENTA);
-					if (helpNode.blocked())
-						g.setColor(Color.LIGHT_GRAY);
+				}
+				if (map[i][j].getMovementPenalty() == Double.MAX_VALUE)
+					g.setColor(Color.LIGHT_GRAY);
+				if(map[i][j].getMovementPenalty() == 1){
+					g.setColor(Color.YELLOW);
 				}
 				g.fillRect(x, y, width - 1, height - 1);
 			}

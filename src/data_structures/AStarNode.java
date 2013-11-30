@@ -5,13 +5,12 @@ public class AStarNode {
 	private double toStart, toEnd;
 	public int heapindex;
 	private Node cameFrom;
-	private boolean blocked, evaluated, inHeap;
+	private boolean evaluated, inHeap;
 
 	public AStarNode() {
 		toStart = Double.MAX_VALUE;
 		toEnd = Double.MAX_VALUE;
 		cameFrom = null;
-		blocked = false;
 		evaluated = false;
 		inHeap = false;
 		heapindex = -1;
@@ -40,22 +39,6 @@ public class AStarNode {
 	
 	public void setCameFrom(Node cameFrom) {
 		this.cameFrom = cameFrom;
-	}
-	
-	public boolean blocked() {
-		return blocked;
-	}
-	
-	public void toggleBlocked() {
-		blocked = !blocked;
-	}
-	
-	public void setBlocked(){
-		blocked = true;
-	}
-	
-	public void setUnblocked(){
-		blocked = false;
 	}
 
 	public boolean isEvaluated() {
