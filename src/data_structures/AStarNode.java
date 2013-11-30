@@ -1,14 +1,13 @@
 package data_structures;
 
-public class AStarNode extends Node {
+public class AStarNode {
 	
 	private double toStart, toEnd;
 	public int heapindex;
-	private AStarNode cameFrom;
+	private Node cameFrom;
 	private boolean blocked, evaluated, inHeap;
 
-	public AStarNode(Coordinates coordinates) {
-		super(coordinates);
+	public AStarNode() {
 		toStart = Double.MAX_VALUE;
 		toEnd = Double.MAX_VALUE;
 		cameFrom = null;
@@ -39,7 +38,7 @@ public class AStarNode extends Node {
 		return cameFrom;
 	}
 	
-	public void setCameFrom(AStarNode cameFrom) {
+	public void setCameFrom(Node cameFrom) {
 		this.cameFrom = cameFrom;
 	}
 	

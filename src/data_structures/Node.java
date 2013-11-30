@@ -2,11 +2,11 @@ package data_structures;
 
 public class Node {
 	private Coordinates coordinates;
+	private double movementCost;
 	
 	public Node(Coordinates coordinates) {
 		this.coordinates = coordinates;
 	}
-	
 	
 	public Coordinates getCoordinates() {
 		return coordinates;

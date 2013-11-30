@@ -4,42 +4,46 @@ import data_structures.LinkedList;
 import data_structures.List;
 import data_structures.MinimumHeap;
 import data_structures.AStarNode;
+import data_structures.Node;
+import data_structures.NodeScorer;
 
 public class AStar {
+	
+	private AStarNode[][] helpMap;
 
-	public List findPath(AStarNode start, AStarNode end, AStarNode[][] map) {
+	public List findPath(Node start, Node end, Node[][] map) {
 		resetHelpVariables(map);
-		MinimumHeap heap = new MinimumHeap(map.length * map[0].length);
+		MinimumHeap heap = new MinimumHeap(map.length * map[0].length, new NodeScorer(helpMap));
 		heap.insert(start);
-		start.setToStart(0);
-		start.setToEnd(Calculations.distanceBetween(start, end));
+		getHelpNode(start).setToStart(0);
+		getHelpNode(start).setToEnd(Calculations.distanceBetween(start, end));
 		while (heap.getSize() > 0) {
-			AStarNode current = heap.delete();
-			current.setIsInHeap(false);
+			Node current = heap.delete();
+			getHelpNode(current).setIsInHeap(false);
 			if (current == end) {
 				return reconstructPath(end);
 			}
-			current.setEvaluated(true); // for visualization purposes
+			getHelpNode(current).setEvaluated(true); // for visualization purposes
 			List neighbours = getNeighbours(current, map);
 
 			while (neighbours.getSize() > 0) {
-				AStarNode neighbor = neighbours.delete();
-				if (neighbor.blocked()) {
+				Node neighbor = neighbours.delete();
+				if (getHelpNode(neighbor).blocked()) {
 					continue;
 				}
-				double toStartCandidate = current.getToStart() + movementCost(current, neighbor);
+				double toStartCandidate = getHelpNode(current).getToStart() + movementCost(current, neighbor);
 				double toEndCandidate = Calculations.distanceBetween(neighbor, end) + toStartCandidate;
 
-				if (toEndCandidate < neighbor.getToEnd()) {
-					neighbor.setCameFrom(current);
-					neighbor.setToStart(toStartCandidate);
-					neighbor.setToEnd(toEndCandidate);
-					if (!neighbor.isInHeap()) {
+				if (toEndCandidate < getHelpNode(neighbor).getToEnd()) {
+					getHelpNode(neighbor).setCameFrom(current);
+					getHelpNode(neighbor).setToStart(toStartCandidate);
+					getHelpNode(neighbor).setToEnd(toEndCandidate);
+					if (!getHelpNode(neighbor).isInHeap()) {
 						heap.insert(neighbor);
-						neighbor.setIsInHeap(true);
+						getHelpNode(neighbor).setIsInHeap(true);
 					} else { // since this node's score has decreased, the heap
 								// property might be broken
-						heap.travelUpwards(neighbor.heapindex);
+						heap.travelUpwards(getHelpNode(neighbor).heapindex);
 					}
 				}
 			}
@@ -48,14 +52,14 @@ public class AStar {
 		return null;
 	}
 
-	private double movementCost(AStarNode current, AStarNode neighbor) {
+	private double movementCost(Node current, Node neighbor) {
 		if (Calculations.distanceBetween(current, neighbor) == 2) {
 			return 1.414;
 		}
 		return 1;
 	}
 
-	private List getNeighbours(AStarNode n, AStarNode[][] map) {
+	private List getNeighbours(Node n, Node[][] map) {
 		List returnee = new LinkedList();
 		int x = n.getCoordinates().x;
 		int y = n.getCoordinates().y;
@@ -77,21 +81,31 @@ public class AStar {
 			returnee.insert(map[x - 1][y + 1]);
 		return returnee;
 	}
+	
+	public AStarNode getHelpNode(Node n) throws ArrayIndexOutOfBoundsException{
+		if(helpMap == null){
+			return null;
+		}
+		int x = n.getCoordinates().x;
+		int y = n.getCoordinates().y;
+		return helpMap[x][y];
+	}
 
-	private void resetHelpVariables(AStarNode[][] map) {
-		for (AStarNode[] nodes : map) {
-			for (AStarNode node : nodes) {
-				node.reset();
+	private void resetHelpVariables(Node[][] map) {
+		helpMap = new AStarNode[map.length][map[0].length];
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[0].length; j++) {
+				helpMap[i][j] = new AStarNode();
 			}
 		}
 	}
 
-	public List reconstructPath(AStarNode end) {
+	public List reconstructPath(Node end) {
 		LinkedList returnee = new LinkedList();
-		AStarNode backtrackAStarNode = end;
-		while (backtrackAStarNode != null) {
-			returnee.insertAtTheBeginning(backtrackAStarNode);
-			backtrackAStarNode = (AStarNode) backtrackAStarNode.cameFrom();
+		Node backTrackNode = end;
+		while (backTrackNode != null) {
+			returnee.insertAtTheBeginning(backTrackNode);
+			backTrackNode = getHelpNode(backTrackNode).cameFrom();
 		}
 		return returnee;
 	}

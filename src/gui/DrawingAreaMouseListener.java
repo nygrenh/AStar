@@ -7,16 +7,19 @@ import algorithms.AStar;
 
 import data_structures.AStarNode;
 import data_structures.Coordinates;
+import data_structures.Node;
 
 public class DrawingAreaMouseListener implements MouseListener {
 
 	private DrawingArea area;
-	private AStarNode[][] map;
+	private Node[][] map;
 	private Coordinates lastClick;
+	private AStar aStar;
 
-	public DrawingAreaMouseListener(DrawingArea area, AStarNode[][] map) {
+	public DrawingAreaMouseListener(DrawingArea area, Node[][] map, AStar aStar) {
 		this.area = area;
 		this.map = map;
+		this.aStar = aStar;
 	}
 
 	@Override
@@ -29,7 +32,7 @@ public class DrawingAreaMouseListener implements MouseListener {
 			area.setEnd(x, y);
 		}
 		if (e.getButton() == MouseEvent.BUTTON2) {
-			map[x][y].toggleBlocked();
+			aStar.getHelpNode(map[x][y]).toggleBlocked();
 		}
 		update();
 	}
@@ -37,8 +40,8 @@ public class DrawingAreaMouseListener implements MouseListener {
 	private void update() {
 		if (area.start.x != -1 && area.end.x != -1) {
 			AStar aStar = new AStar();
-			AStarNode start = map[area.start.x][area.start.y];
-			AStarNode end = map[area.end.x][area.end.y];
+			Node start = map[area.start.x][area.start.y];
+			Node end = map[area.end.x][area.end.y];
 			area.setPath(aStar.findPath(start, end, map));
 		}
 		area.repaint();
@@ -86,12 +89,12 @@ public class DrawingAreaMouseListener implements MouseListener {
 	private void changeNodeMode(MouseEvent e, int i, int j) {
 		try {
 			if (e.getButton() == MouseEvent.BUTTON1 && e.isShiftDown())
-				map[i][j].toggleBlocked();
+				aStar.getHelpNode(map[i][j]).toggleBlocked();
 			else if (e.getButton() == MouseEvent.BUTTON1) {
-				map[i][j].setBlocked();
+				aStar.getHelpNode(map[i][j]).setBlocked();
 			}
 			if (e.getButton() == MouseEvent.BUTTON3) {
-				map[i][j].setUnblocked();
+				aStar.getHelpNode(map[i][j]).setUnblocked();
 			}
 		} catch (ArrayIndexOutOfBoundsException e1) {
 		}

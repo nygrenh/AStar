@@ -36,7 +36,7 @@ public class LinkedList implements List {
 	 * 
 	 * @return Node, if it exits, null otherwise
 	 */
-	public AStarNode get(int index) {
+	public Node get(int index) {
 		if (head == null || index < 0) {
 			return null;
 		}
@@ -49,7 +49,7 @@ public class LinkedList implements List {
 			}
 			i++;
 		}
-		return (AStarNode) fastForwardNode.getNode();
+		return fastForwardNode.getNode();
 	}
 
 	public int getSize() {
@@ -57,8 +57,8 @@ public class LinkedList implements List {
 	}
 
 	@Override
-	public AStarNode delete() {
-		AStarNode returnee = get(0);
+	public Node delete() {
+		Node returnee = get(0);
 		if (head != null) {
 			head = head.getNext();
 		}

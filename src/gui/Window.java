@@ -6,9 +6,12 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
+import algorithms.AStar;
+
 
 import data_structures.AStarNode;
 import data_structures.Coordinates;
+import data_structures.Node;
 
 public class Window implements Runnable{
 
@@ -28,16 +31,17 @@ public class Window implements Runnable{
 	}
 	
 	private void createComponents(Container contentPane) {
-		AStarNode map[][] = new AStarNode[20][20];
+		Node map[][] = new Node[20][20];
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[0].length; j++) {
 				Coordinates coordinates = new Coordinates(i, j);
-				map[i][j] = new AStarNode(coordinates);
+				map[i][j] = new Node(coordinates);
 			}
 		}
-		DrawingArea drawingArea = new DrawingArea(map, dimension);
+		AStar aStar = new AStar();
+		DrawingArea drawingArea = new DrawingArea(map, dimension, aStar);
 		contentPane.add(drawingArea);
-		drawingArea.addMouseListener(new DrawingAreaMouseListener(drawingArea, map));
+		drawingArea.addMouseListener(new DrawingAreaMouseListener(drawingArea, map, aStar));
 	}
 
 	public static void main(String[] args) {

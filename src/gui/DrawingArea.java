@@ -8,26 +8,30 @@ import java.awt.RenderingHints;
 
 import javax.swing.JPanel;
 
+import algorithms.AStar;
+
 import data_structures.AStarNode;
 import data_structures.Coordinates;
 import data_structures.List;
-
+import data_structures.Node;
 
 public class DrawingArea extends JPanel {
-	
+
 	private static final boolean visualization = true;
 
-	private AStarNode[][] map;
+	private Node[][] map;
 	private int width, height;
 	Coordinates start, end;
 	private List path;
+	private AStar aStar;
 
-	public DrawingArea(AStarNode[][] map, Dimension size) {
+	public DrawingArea(Node[][] map, Dimension size, AStar aStar) {
 		this.map = map;
 		this.width = (int) (size.getWidth() / map[0].length);
 		this.height = (int) (size.getHeight() / map.length);
 		start = new Coordinates(-1, -1);
 		end = new Coordinates(-1, -1);
+		this.aStar = aStar;
 	}
 
 	@Override
@@ -35,7 +39,7 @@ public class DrawingArea extends JPanel {
 		super.paintComponent(g);
 		turnAntiAliasingOn(g);
 		paintGrid(g);
-		if(path!=null){
+		if (path != null) {
 			paintPath(g);
 		}
 		paintStart(g);
@@ -48,15 +52,14 @@ public class DrawingArea extends JPanel {
 			Coordinates coordinates = path.get(i).getCoordinates();
 			int x = coordinates.x * width;
 			int y = coordinates.y * height;
-			g.fillRect(x, y, width -1, height -1);
+			g.fillRect(x, y, width - 1, height - 1);
 		}
-		
+
 	}
 
 	private void turnAntiAliasingOn(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
 	private void paintStart(Graphics g) {
@@ -80,14 +83,17 @@ public class DrawingArea extends JPanel {
 			for (int j = 0; j < map[0].length; j++) {
 				int x = i * width;
 				int y = j * height;
-				if (!map[i][j].blocked())
-					g.setColor(Color.WHITE);
-				if(map[i][j].isEvaluated() && visualization)
-					g.setColor(Color.BLUE);
-				else if(map[i][j].isInHeap() && visualization)
-					g.setColor(Color.MAGENTA);
-				if(map[i][j].blocked())
-					g.setColor(Color.LIGHT_GRAY);
+				AStarNode helpNode = aStar.getHelpNode(map[i][j]);
+				g.setColor(Color.WHITE);
+
+				if (helpNode != null) {
+					if (helpNode.isEvaluated() && visualization)
+						g.setColor(Color.BLUE);
+					else if (helpNode.isInHeap() && visualization)
+						g.setColor(Color.MAGENTA);
+					if (helpNode.blocked())
+						g.setColor(Color.LIGHT_GRAY);
+				}
 				g.fillRect(x, y, width - 1, height - 1);
 			}
 		}
@@ -98,7 +104,6 @@ public class DrawingArea extends JPanel {
 		start.y = y;
 		repaint();
 	}
-	
 
 	public void setEnd(int x, int y) {
 		end.x = x;
@@ -113,7 +118,7 @@ public class DrawingArea extends JPanel {
 	public int height() {
 		return height;
 	}
-	
+
 	public void setPath(List path) {
 		this.path = path;
 	}
