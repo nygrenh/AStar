@@ -19,12 +19,12 @@ public class AStar {
 		getHelpNode(start).setToEnd(Calculations.distanceBetween(start, end));
 		while (heap.getSize() > 0) {
 			Node current = heap.delete();
-			getHelpNode(current).setIsInHeap(false);
+			AStarNode currentHelp = getHelpNode(current);
+			currentHelp.setIsInHeap(false);
 			if (current == end) {
 				return reconstructPath(end);
 			}
-			getHelpNode(current).setEvaluated(true); // for visualization
-														// purposes
+			currentHelp.setEvaluated(true); // for visualization purposes
 			List neighbours = getNeighbours(current, map);
 
 			while (neighbours.getSize() > 0) {
@@ -32,19 +32,20 @@ public class AStar {
 				if (neighbor.getMovementPenalty() == Double.MAX_VALUE) {
 					continue;
 				}
-				double toStartCandidate = getHelpNode(current).getToStart() + movementCost(current, neighbor);
+				double toStartCandidate = currentHelp.getToStart() + movementCost(current, neighbor);
 				double toEndCandidate = Calculations.distanceBetween(neighbor, end) + toStartCandidate;
 
-				if (toEndCandidate < getHelpNode(neighbor).getToEnd()) {
-					getHelpNode(neighbor).setCameFrom(current);
-					getHelpNode(neighbor).setToStart(toStartCandidate);
-					getHelpNode(neighbor).setToEnd(toEndCandidate);
-					if (!getHelpNode(neighbor).isInHeap()) {
+				AStarNode neighbourHelp = getHelpNode(neighbor);
+				if (toEndCandidate < neighbourHelp.getToEnd()) {
+					neighbourHelp.setCameFrom(current);
+					neighbourHelp.setToStart(toStartCandidate);
+					neighbourHelp.setToEnd(toEndCandidate);
+					if (!neighbourHelp.isInHeap()) {
 						heap.insert(neighbor);
-						getHelpNode(neighbor).setIsInHeap(true);
+						neighbourHelp.setIsInHeap(true);
 					} else { // since this node's score has decreased, the heap
 								// property might be broken
-						heap.travelUpwards(getHelpNode(neighbor).heapindex);
+						heap.travelUpwards(neighbourHelp.heapindex);
 					}
 				}
 			}
