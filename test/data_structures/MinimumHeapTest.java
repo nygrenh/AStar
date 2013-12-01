@@ -10,31 +10,34 @@ import algorithms.AStar;
 public class MinimumHeapTest {
 
 	private MinimumHeap heap;
-	private AStarNode[][] scoreMap;
+	private AStar aStar;
 
 	@Before
 	public void setUp() throws Exception {
-		scoreMap = new AStarNode[3][3];
-		for (int i = 0; i < scoreMap.length; i++) {
-			for (int j = 0; j < scoreMap[0].length; j++) {
-				scoreMap[i][j] = new AStarNode();
+		aStar = new AStar();
+		heap = new MinimumHeap(10, new NodeScorer(aStar));
+		Node[][] map = new Node[10][10];
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[0].length; j++) {
+				Coordinates coordinates = new Coordinates(i, j);
+				map[i][j] = new Node(coordinates);
 			}
 		}
-		heap = new MinimumHeap(10, new NodeScorer(scoreMap));
+		aStar.findPath(new Node(new Coordinates(0, 0)), new Node(new Coordinates(0, 2)), map);
 	}
 
 	@Test
 	public void heapGivesAStarNodesInRightOrder() {
 		Node node1 = new Node(new Coordinates(0, 0));
-		scoreMap[0][0].setToEnd(4);
+		aStar.getHelpNode(node1).setToEnd(4);
 		Node node2 = new Node(new Coordinates(0, 1));
-		scoreMap[0][1].setToEnd(55);
+		aStar.getHelpNode(node2).setToEnd(55);
 		Node node3 = new Node(new Coordinates(0, 2));
-		scoreMap[0][2].setToEnd(1);
+		aStar.getHelpNode(node3).setToEnd(1);
 		Node node4 = new Node(new Coordinates(1, 0));
-		scoreMap[1][0].setToEnd(4);
+		aStar.getHelpNode(node4).setToEnd(4);
 		Node node5 = new Node(new Coordinates(1, 1));
-		scoreMap[1][1].setToEnd(3);
+		aStar.getHelpNode(node5).setToEnd(3);
 
 		heap.insert(node1);
 		heap.insert(node2);
@@ -45,10 +48,8 @@ public class MinimumHeapTest {
 		
 		assertEquals(node3, heap.delete());
 		assertEquals(node5, heap.delete());
-		Coordinates c = heap.delete().getCoordinates();
-		assertEquals(4, scoreMap[c.x][c.y].getToEnd(), 0.1);
-		c = heap.delete().getCoordinates();
-		assertEquals(4, scoreMap[c.x][c.y].getToEnd(), 0.1);
+		assertEquals(4, aStar.getHelpNode(heap.delete()).getToEnd(), 0.1);
+		assertEquals(4, aStar.getHelpNode(heap.delete()).getToEnd(), 0.1);
 		assertEquals(node2, heap.delete());
 	}
 

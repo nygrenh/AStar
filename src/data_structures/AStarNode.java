@@ -16,7 +16,6 @@ public class AStarNode {
 		heapindex = -1;
 	}
 	
-	
 	public double getToEnd() {
 		return toEnd;
 	}

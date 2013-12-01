@@ -109,7 +109,10 @@ public class MinimumHeap {
 	}
 
 	private void updateHeapIndex(int i, Node n) {
-		//array[i].heapindex = i;
+		if(scorer instanceof NodeScorer){
+			NodeScorer nodeScorer = (NodeScorer) scorer;
+			nodeScorer.updateHeapIndex(n, i);
+		}
 	}
 
 	public int getSize() {
