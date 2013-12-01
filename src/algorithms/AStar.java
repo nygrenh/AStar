@@ -12,7 +12,7 @@ public class AStar {
 	private AStarNode[][] helpMap;
 
 	public List findPath(Node start, Node end, Node[][] map) {
-		resetHelpVariables(map);
+		helpMap = new AStarNode[map.length][map[0].length];
 		MinimumHeap heap = new MinimumHeap(map.length * map[0].length, new NodeScorer(helpMap));
 		heap.insert(start);
 		getHelpNode(start).setToStart(0);
@@ -86,22 +86,22 @@ public class AStar {
 		return returnee;
 	}
 
+	/**
+	 * Returns the appropriate help variable container for node n. Containers
+	 * will be created on demand.
+	 * 
+	 * @return AStarNode, if helpMap has been initialized, null otherwise
+	 */
 	public AStarNode getHelpNode(Node n) {
 		if (helpMap == null) {
 			return null;
 		}
 		int x = n.getCoordinates().x;
 		int y = n.getCoordinates().y;
-		return helpMap[x][y];
-	}
-
-	private void resetHelpVariables(Node[][] map) {
-		helpMap = new AStarNode[map.length][map[0].length];
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map[0].length; j++) {
-				helpMap[i][j] = new AStarNode();
-			}
+		if (helpMap[x][y] == null) {
+			helpMap[x][y] = new AStarNode();
 		}
+		return helpMap[x][y];
 	}
 
 	private List reconstructPath(Node end) {
