@@ -85,7 +85,7 @@ public class AStar {
 		return returnee;
 	}
 
-	public AStarNode getHelpNode(Node n) throws ArrayIndexOutOfBoundsException {
+	public AStarNode getHelpNode(Node n) {
 		if (helpMap == null) {
 			return null;
 		}
@@ -103,7 +103,7 @@ public class AStar {
 		}
 	}
 
-	public List reconstructPath(Node end) {
+	private List reconstructPath(Node end) {
 		LinkedList returnee = new LinkedList();
 		Node backTrackNode = end;
 		while (backTrackNode != null) {

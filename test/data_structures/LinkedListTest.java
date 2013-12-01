@@ -21,8 +21,8 @@ public class LinkedListTest {
 
 	@Test
 	public void insertingWorks() {
-		AStarNode n = new AStarNode(new Coordinates(0, 0));
-		AStarNode n2 = new AStarNode(new Coordinates(0, 0));
+		Node n = new Node(new Coordinates(0, 0));
+		Node n2 = new Node(new Coordinates(0, 0));
 		linkedList.insert(n);
 		linkedList.insert(n2);
 		assertEquals(n, linkedList.get(0));
@@ -41,8 +41,8 @@ public class LinkedListTest {
 	
 	@Test
 	public void insertingAtTheBeginningWorks() {
-		AStarNode n = new AStarNode(new Coordinates(0, 0));
-		AStarNode n2 = new AStarNode(new Coordinates(0, 0));
+		Node n = new Node(new Coordinates(0, 0));
+		Node n2 = new Node(new Coordinates(0, 0));
 		linkedList.insertAtTheBeginning(n2);
 		linkedList.insertAtTheBeginning(n);
 		assertEquals(n, linkedList.get(0));
@@ -52,8 +52,8 @@ public class LinkedListTest {
 	
 	@Test
 	public void mixedInsertWorks() {
-		AStarNode n = new AStarNode(new Coordinates(0, 0));
-		AStarNode n2 = new AStarNode(new Coordinates(0, 0));
+		Node n = new Node(new Coordinates(0, 0));
+		Node n2 = new Node(new Coordinates(0, 0));
 		linkedList.insertAtTheBeginning(n2);
 		linkedList.insert(n);
 		assertEquals(n2, linkedList.get(0));

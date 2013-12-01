@@ -5,27 +5,36 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import algorithms.AStar;
+
 public class MinimumHeapTest {
 
 	private MinimumHeap heap;
+	private AStarNode[][] scoreMap;
 
 	@Before
 	public void setUp() throws Exception {
-		heap = new MinimumHeap(10);
+		scoreMap = new AStarNode[3][3];
+		for (int i = 0; i < scoreMap.length; i++) {
+			for (int j = 0; j < scoreMap[0].length; j++) {
+				scoreMap[i][j] = new AStarNode();
+			}
+		}
+		heap = new MinimumHeap(10, new NodeScorer(scoreMap));
 	}
 
 	@Test
 	public void heapGivesAStarNodesInRightOrder() {
-		AStarNode node1 = new AStarNode(new Coordinates(0, 0));
-		node1.setToEnd(4);
-		AStarNode node2 = new AStarNode(new Coordinates(0, 0));
-		node2.setToEnd(55);
-		AStarNode node3 = new AStarNode(new Coordinates(0, 0));
-		node3.setToEnd(1);
-		AStarNode node4 = new AStarNode(new Coordinates(0, 0));
-		node4.setToEnd(4);
-		AStarNode node5 = new AStarNode(new Coordinates(0, 0));
-		node5.setToEnd(3);
+		Node node1 = new Node(new Coordinates(0, 0));
+		scoreMap[0][0].setToEnd(4);
+		Node node2 = new Node(new Coordinates(0, 1));
+		scoreMap[0][1].setToEnd(55);
+		Node node3 = new Node(new Coordinates(0, 2));
+		scoreMap[0][2].setToEnd(1);
+		Node node4 = new Node(new Coordinates(1, 0));
+		scoreMap[1][0].setToEnd(4);
+		Node node5 = new Node(new Coordinates(1, 1));
+		scoreMap[1][1].setToEnd(3);
 
 		heap.insert(node1);
 		heap.insert(node2);
@@ -33,10 +42,13 @@ public class MinimumHeapTest {
 		heap.insert(node4);
 		heap.insert(node5);
 
+		
 		assertEquals(node3, heap.delete());
 		assertEquals(node5, heap.delete());
-		assertEquals(4, heap.delete().getToEnd(), 0.1);
-		assertEquals(4, heap.delete().getToEnd(), 0.1);
+		Coordinates c = heap.delete().getCoordinates();
+		assertEquals(4, scoreMap[c.x][c.y].getToEnd(), 0.1);
+		c = heap.delete().getCoordinates();
+		assertEquals(4, scoreMap[c.x][c.y].getToEnd(), 0.1);
 		assertEquals(node2, heap.delete());
 	}
 
@@ -48,17 +60,17 @@ public class MinimumHeapTest {
 
 	@Test
 	public void deletingWorksWhenHeapIsFull() {
-		AStarNode n = new AStarNode(new Coordinates(0, 0));
+		Node n = new Node(new Coordinates(0, 0));
 		heap.insert(n);
-		heap.insert(new AStarNode(new Coordinates(0, 0)));
-		heap.insert(new AStarNode(new Coordinates(0, 0)));
-		heap.insert(new AStarNode(new Coordinates(0, 0)));
-		heap.insert(new AStarNode(new Coordinates(0, 0)));
-		heap.insert(new AStarNode(new Coordinates(0, 0)));
-		heap.insert(new AStarNode(new Coordinates(0, 0)));
-		heap.insert(new AStarNode(new Coordinates(0, 0)));
-		heap.insert(new AStarNode(new Coordinates(0, 0)));
-		heap.insert(new AStarNode(new Coordinates(0, 0)));
+		heap.insert(new Node(new Coordinates(0, 0)));
+		heap.insert(new Node(new Coordinates(0, 0)));
+		heap.insert(new Node(new Coordinates(0, 0)));
+		heap.insert(new Node(new Coordinates(0, 0)));
+		heap.insert(new Node(new Coordinates(0, 0)));
+		heap.insert(new Node(new Coordinates(0, 0)));
+		heap.insert(new Node(new Coordinates(0, 0)));
+		heap.insert(new Node(new Coordinates(0, 0)));
+		heap.insert(new Node(new Coordinates(0, 0)));
 
 		assertEquals(n, heap.delete());
 	}
