@@ -84,19 +84,18 @@ public class DrawingArea extends JPanel {
 			for (int j = 0; j < map[0].length; j++) {
 				int x = i * width;
 				int y = j * height;
-				AStarNode helpNode = aStar.getHelpNode(map[i][j]);
 				g.setColor(Color.WHITE);
-
+				if (map[i][j].getMovementPenalty() == Double.MAX_VALUE)
+					g.setColor(Color.LIGHT_GRAY);
+				if(map[i][j].getMovementPenalty() == 1){
+					g.setColor(Color.YELLOW);
+				}
+				AStarNode helpNode = aStar.getHelpNode(map[i][j]);
 				if (helpNode != null) {
 					if (helpNode.isEvaluated() && visualization)
 						g.setColor(Color.BLUE);
 					else if (helpNode.isInHeap() && visualization)
 						g.setColor(Color.MAGENTA);
-				}
-				if (map[i][j].getMovementPenalty() == Double.MAX_VALUE)
-					g.setColor(Color.LIGHT_GRAY);
-				if(map[i][j].getMovementPenalty() == 1){
-					g.setColor(Color.YELLOW);
 				}
 				g.fillRect(x, y, width - 1, height - 1);
 			}
