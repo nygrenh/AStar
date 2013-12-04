@@ -4,13 +4,11 @@ package data_structures;
  * Binary minimum heap.
  */
 public class MinimumHeap {
-	private Node[] array;
-	private Scorer scorer;
+	private AStarNode[] array;
 	private int heapSize;
 
-	public MinimumHeap(int size, Scorer scorer) {
-		this.scorer = scorer;
-		array = new Node[size + 1];
+	public MinimumHeap(int size) {
+		array = new AStarNode[size + 1];
 		heapSize = 0;
 	}
 
@@ -47,9 +45,9 @@ public class MinimumHeap {
 		}
 	}
 
-	private double getScore(int left) {
+	private double getScore(int score) {
 		try {
-			return scorer.getScore(array[left]);
+			return array[score].getToEnd();
 		} catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
 			return Integer.MAX_VALUE;
 		}
@@ -60,11 +58,11 @@ public class MinimumHeap {
 	 * 
 	 * @return the deleted node
 	 */
-	public Node delete() {
+	public AStarNode delete() {
 		if (heapSize == 0) {
 			return null;
 		}
-		Node min = array[1];
+		AStarNode min = array[1];
 		array[1] = array[heapSize];
 		heapSize--;
 		heapify(1);
@@ -72,7 +70,7 @@ public class MinimumHeap {
 		return min;
 	}
 
-	public void insert(Node insertee) {
+	public void insert(AStarNode insertee) {
 		if (heapSize == array.length - 1) {
 			System.err.println("Warning: Heap dropped a node on insert. Consider increasing heap size.");
 			return;
@@ -98,21 +96,18 @@ public class MinimumHeap {
 	}
 
 	private void swap(int i, int j) {
-		if(i<1 || j < 1){
+		if (i < 1 || j < 1) {
 			return;
 		}
-		Node help = array[i];
+		AStarNode help = array[i];
 		array[i] = array[j];
 		updateHeapIndex(i, array[i]);
 		array[j] = help;
 		updateHeapIndex(j, array[j]);
 	}
 
-	private void updateHeapIndex(int i, Node n) {
-		if(scorer instanceof NodeScorer){
-			NodeScorer nodeScorer = (NodeScorer) scorer;
-			nodeScorer.updateHeapIndex(n, i);
-		}
+	private void updateHeapIndex(int i, AStarNode n) {
+		n.heapindex = i;
 	}
 
 	public int getSize() {

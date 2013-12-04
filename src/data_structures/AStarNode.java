@@ -4,7 +4,8 @@ public class AStarNode {
 	
 	private double toStart, toEnd;
 	public int heapindex;
-	private Node cameFrom, node;
+	private Node node;
+	private AStarNode cameFrom;
 	private boolean evaluated, inHeap;
 
 	public AStarNode(Node node) {
@@ -41,11 +42,11 @@ public class AStarNode {
 		this.toStart = score;
 	}
 	
-	public Node cameFrom(){
+	public AStarNode cameFrom(){
 		return cameFrom;
 	}
 	
-	public void setCameFrom(Node cameFrom) {
+	public void setCameFrom(AStarNode cameFrom) {
 		this.cameFrom = cameFrom;
 	}
 
