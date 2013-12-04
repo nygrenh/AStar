@@ -41,7 +41,7 @@ public class AStar {
 				double toStartCandidate = current.getToStart() + movementCost(current, neighbour);
 				double toEndCandidate = Calculations.distanceBetween(neighbour, end) + toStartCandidate;
 
-				if (toEndCandidate < neighbour.getToEnd()) {
+				if (toStartCandidate < neighbour.getToStart()) {
 					neighbour.setCameFrom(current);
 					neighbour.setToStart(toStartCandidate);
 					neighbour.setToEnd(toEndCandidate);

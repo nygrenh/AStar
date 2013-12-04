@@ -13,11 +13,11 @@ public class Calculations {
 			return -i;
 	}
 
-	public static int distanceBetween(Coordinates c1, Coordinates c2) {
+	public static double distanceBetween(Coordinates c1, Coordinates c2) {
 		return absoluteValue(c1.x - c2.x) + absoluteValue(c1.y - c2.y);
 	}
 
-	public static int distanceBetween(Node n1, Node n2) {
+	public static double distanceBetween(Node n1, Node n2) {
 		return distanceBetween(n1.getCoordinates(), n2.getCoordinates());
 	}
 
@@ -25,7 +25,7 @@ public class Calculations {
 		return distanceBetween(neighbour.getNode(), end);
 	}
 
-	public static int distanceBetween(AStarNode current, AStarNode neighbour) {
+	public static double distanceBetween(AStarNode current, AStarNode neighbour) {
 		return distanceBetween(current.getNode(), neighbour.getNode());
 	}
 
