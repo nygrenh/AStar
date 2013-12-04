@@ -5,7 +5,6 @@ import java.awt.event.MouseListener;
 
 import algorithms.AStar;
 
-import data_structures.AStarNode;
 import data_structures.Coordinates;
 import data_structures.Node;
 import data_structures.NodeType;

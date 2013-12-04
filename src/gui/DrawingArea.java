@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.List;
 
 import javax.swing.JPanel;
 
@@ -12,7 +13,6 @@ import algorithms.AStar;
 
 import data_structures.AStarNode;
 import data_structures.Coordinates;
-import data_structures.List;
 import data_structures.Node;
 
 public class DrawingArea extends JPanel {
@@ -22,7 +22,7 @@ public class DrawingArea extends JPanel {
 	private Node[][] map;
 	private int width, height;
 	Coordinates start, end;
-	private List path;
+	private List<Node> path;
 	private AStar aStar;
 
 	public DrawingArea(Node[][] map, Dimension size, AStar aStar) {
@@ -48,7 +48,7 @@ public class DrawingArea extends JPanel {
 
 	private void paintPath(Graphics g) {
 		g.setColor(Color.CYAN);
-		for (int i = 0; i < path.getSize(); i++) {
+		for (int i = 0; i < path.size(); i++) {
 			Coordinates coordinates = path.get(i).getCoordinates();
 			int x = coordinates.x * width;
 			int y = coordinates.y * height;
@@ -122,7 +122,7 @@ public class DrawingArea extends JPanel {
 		return height;
 	}
 
-	public void setPath(List path) {
+	public void setPath(List<Node> path) {
 		this.path = path;
 	}
 

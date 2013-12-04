@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data_structures.Coordinates;
-import data_structures.List;
 import data_structures.Node;
 
 public class AStarTest {
