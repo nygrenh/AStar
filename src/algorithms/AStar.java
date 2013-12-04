@@ -10,10 +10,17 @@ import data_structures.NodeScorer;
 public class AStar {
 
 	private AStarNode[][] helpMap;
-
+	
+	/**
+	 * Finds a path between start and end
+	 * @param start
+	 * @param end
+	 * @param map
+	 * @return List, that contains the path
+	 */
 	public List findPath(Node start, Node end, Node[][] map) {
 		helpMap = new AStarNode[map.length][map[0].length];
-		MinimumHeap heap = new MinimumHeap(map.length * map[0].length, new NodeScorer(helpMap));
+		MinimumHeap heap = new MinimumHeap(map.length * map[0].length, new NodeScorer(this));
 		heap.insert(start);
 		getHelpNode(start).setToStart(0);
 		getHelpNode(start).setToEnd(Calculations.distanceBetween(start, end));
@@ -53,7 +60,13 @@ public class AStar {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * Calculates the moving cost between two Nodes
+	 * @param current
+	 * @param neighbor
+	 * @return Double
+	 */
 	private double movementCost(Node current, Node neighbor) {
 		double cost = 1;
 		cost += current.getMovementPenalty() / 2;
@@ -62,7 +75,13 @@ public class AStar {
 			cost *= 1.414214;
 		return cost;
 	}
-
+	
+	/**
+	 * Returns node n's neighbors
+	 * @param n 
+	 * @param map Graph
+	 * @return
+	 */
 	private List getNeighbours(Node n, Node[][] map) {
 		List returnee = new LinkedList();
 		int x = n.getCoordinates().x;
@@ -88,7 +107,7 @@ public class AStar {
 
 	/**
 	 * Returns the appropriate help variable container for node n. Containers
-	 * will be created on demand.
+	 * are created on demand.
 	 * 
 	 * @return AStarNode, if helpMap has been initialized, null otherwise
 	 */
@@ -99,11 +118,16 @@ public class AStar {
 		int x = n.getCoordinates().x;
 		int y = n.getCoordinates().y;
 		if (helpMap[x][y] == null) {
-			helpMap[x][y] = new AStarNode();
+			helpMap[x][y] = new AStarNode(n);
 		}
 		return helpMap[x][y];
 	}
-
+	
+	/**
+	 * Reconstructs the path that we've found
+	 * @param end Destination node
+	 * @return List, that contains our path from beginning to end
+	 */
 	private List reconstructPath(Node end) {
 		LinkedList returnee = new LinkedList();
 		Node backTrackNode = end;

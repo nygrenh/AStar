@@ -4,18 +4,27 @@ public class AStarNode {
 	
 	private double toStart, toEnd;
 	public int heapindex;
-	private Node cameFrom;
+	private Node cameFrom, node;
 	private boolean evaluated, inHeap;
 
-	public AStarNode() {
+	public AStarNode(Node node) {
 		toStart = Double.MAX_VALUE;
 		toEnd = Double.MAX_VALUE;
 		cameFrom = null;
+		this.node = node;
 		evaluated = false;
 		inHeap = false;
 		heapindex = -1;
 	}
 	
+	public Node getNode() {
+		return node;
+	}
+
+	public void setNode(Node node) {
+		this.node = node;
+	}
+
 	public double getToEnd() {
 		return toEnd;
 	}
