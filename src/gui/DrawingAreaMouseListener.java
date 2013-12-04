@@ -31,16 +31,11 @@ public class DrawingAreaMouseListener implements MouseListener {
 		if (e.getButton() == MouseEvent.BUTTON3) {
 			area.setEnd(x, y);
 		}
-		if (e.getButton() == MouseEvent.BUTTON2) {
-			//TODO Do something to this
-			//aStar.getHelpNode(map[x][y]).toggleBlocked();
-		}
 		update();
 	}
 
 	private void update() {
 		if (area.start.x != -1 && area.end.x != -1) {
-			AStar aStar = new AStar();
 			Node start = map[area.start.x][area.start.y];
 			Node end = map[area.end.x][area.end.y];
 			area.setPath(aStar.findPath(start, end, map));

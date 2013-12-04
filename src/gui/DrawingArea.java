@@ -17,7 +17,7 @@ import data_structures.Node;
 
 public class DrawingArea extends JPanel {
 
-	private static final boolean visualization = true;
+	private boolean visualization;
 
 	private Node[][] map;
 	private int width, height;
@@ -32,6 +32,7 @@ public class DrawingArea extends JPanel {
 		start = new Coordinates(-1, -1);
 		end = new Coordinates(-1, -1);
 		this.aStar = aStar;
+		this.visualization = false;
 	}
 
 	@Override
@@ -125,5 +126,9 @@ public class DrawingArea extends JPanel {
 	public void setPath(List<Node> path) {
 		this.path = path;
 	}
-
+	
+	public void toggleVisualization(){
+		visualization = !visualization;
+		this.repaint();
+	}
 }
