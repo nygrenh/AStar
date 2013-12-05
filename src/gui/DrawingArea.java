@@ -9,11 +9,13 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+
 import algorithms.AStar;
 
 import data_structures.AStarNode;
 import data_structures.Coordinates;
 import data_structures.Node;
+import data_structures.NodeType;
 
 public class DrawingArea extends JPanel {
 
@@ -85,10 +87,13 @@ public class DrawingArea extends JPanel {
 				int x = i * width;
 				int y = j * height;
 				g.setColor(Color.WHITE);
-				if (map[i][j].getMovementPenalty() == Double.MAX_VALUE)
+				if (map[i][j].getType() == NodeType.wall)
 					g.setColor(Color.LIGHT_GRAY);
-				if(map[i][j].getMovementPenalty() == 1){
+				if(map[i][j].getType() == NodeType.sand){
 					g.setColor(Color.YELLOW);
+				}
+				if(map[i][j].getType() == NodeType.glue){
+					g.setColor(Color.PINK);
 				}
 				AStarNode helpNode = aStar.getHelpNode(map[i][j]);
 				if (helpNode != null) {

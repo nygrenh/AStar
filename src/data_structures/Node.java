@@ -30,4 +30,8 @@ public class Node {
 	public void setType(NodeType t) {
 		this.type = t;
 	}
+	
+	public NodeType getType(){
+		return this.type;
+	}
 }
