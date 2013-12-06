@@ -94,7 +94,7 @@ public class DrawingAreaMouseListener implements MouseListener {
 				map[i][j].setType(NodeType.normal);
 			}
 			if (e.getButton() == MouseEvent.BUTTON3 && e.isShiftDown() ) {
-				map[i][j].setType(NodeType.glue);
+				map[i][j].setType(NodeType.mud);
 			}
 		} catch (ArrayIndexOutOfBoundsException e1) {
 		}

@@ -40,7 +40,7 @@ private AStar aStar;
 	@Test
 	public void alogrithmAvoidsCostlyNodes(){
 		Node[][] map = nodeMap(5, 2);
-		map[0][2].setType(NodeType.glue);
+		map[0][2].setType(NodeType.mud);
 		List<Node> path = aStar.findPath(map[0][0], map[0][4], map);
 		for(Node n : path){
 			int x = n.getCoordinates().x;

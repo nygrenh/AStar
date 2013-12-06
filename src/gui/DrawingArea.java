@@ -92,7 +92,7 @@ public class DrawingArea extends JPanel {
 				if(map[i][j].getType() == NodeType.sand){
 					g.setColor(Color.YELLOW);
 				}
-				if(map[i][j].getType() == NodeType.glue){
+				if(map[i][j].getType() == NodeType.mud){
 					g.setColor(Color.PINK);
 				}
 				AStarNode helpNode = aStar.getHelpNode(map[i][j]);
