@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-
 public class LinkedList<T> implements List<T> {
 	private int size;
 	private LinkedListNode<T> head, tail;
@@ -57,7 +56,8 @@ public class LinkedList<T> implements List<T> {
 		if (head != null) {
 			head = head.getNext();
 		}
-		size--;
+		if (size != 0)
+			size--;
 		return returnee;
 	}
 
@@ -73,17 +73,17 @@ public class LinkedList<T> implements List<T> {
 		tail = inserteeListT;
 		return true;
 	}
-	
+
 	@Override
 	public int size() {
 		return size;
 	}
-	
+
 	@Override
 	public boolean isEmpty() {
-		return size==0;
+		return size == 0;
 	}
-	
+
 	@Override
 	public Iterator<T> iterator() {
 		return new LinkedListIterator<T>(head);

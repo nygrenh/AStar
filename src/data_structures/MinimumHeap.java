@@ -72,7 +72,6 @@ public class MinimumHeap {
 
 	public void insert(AStarNode insertee) {
 		if (heapSize == array.length - 1) {
-			System.err.println("Warning: Heap dropped a node on insert. Consider increasing heap size.");
 			return;
 		}
 		heapSize++;

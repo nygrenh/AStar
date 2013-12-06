@@ -21,6 +21,9 @@ public class AStar {
 	 */
 	public List<Node> findPath(Node start, Node end, Node[][] map) {
 		generateHelpMap(map);
+		if(start.getMovementPenalty() == Double.MAX_VALUE){
+			return null;
+		}
 		MinimumHeap heap = new MinimumHeap(map.length * map[0].length);
 		AStarNode aStart = new AStarNode(start);
 		heap.insert(aStart);

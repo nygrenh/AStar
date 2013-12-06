@@ -24,7 +24,7 @@ public class MinimumHeapTest {
 	}
 
 	@Test
-	public void heapGivesAStarNodesInRightOrder() {
+	public void heapGivesNodesInRightOrder() {
 		AStarNode node1 = new AStarNode(new Node(new Coordinates(0, 0)));
 		node1.setToEnd(4);
 		AStarNode node2 = new AStarNode(new Node(new Coordinates(0, 1)));
@@ -71,6 +71,13 @@ public class MinimumHeapTest {
 		heap.insert(new AStarNode(new Node(new Coordinates(0, 0))));
 
 		assertEquals(n, heap.delete());
+	}
+	
+	@Test
+	public void addingTooManyNodesDoesntCauseAnyProblems(){
+		for (int i = 0; i < 20; i++) {
+			heap.insert(new AStarNode(new Node(new Coordinates(0, 0))));
+		}
 	}
 
 }
