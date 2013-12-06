@@ -13,13 +13,6 @@ public class MinimumHeapTest {
 	@Before
 	public void setUp() throws Exception {
 		heap = new MinimumHeap(10);
-		Node[][] map = new Node[10][10];
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map[0].length; j++) {
-				Coordinates coordinates = new Coordinates(i, j);
-				map[i][j] = new Node(coordinates);
-			}
-		}
 	}
 
 	@Test
@@ -77,6 +70,25 @@ public class MinimumHeapTest {
 		for (int i = 0; i < 20; i++) {
 			heap.insert(new AStarNode(new Node(new Coordinates(0, 0))));
 		}
+	}
+	
+	@Test
+	public void insertionTimeTest(){
+		heap = new MinimumHeap(100003);
+		long before = System.currentTimeMillis();
+		for (int i = 0; i < 100000; i++) {
+			heap.insert(new AStarNode(new Node(new Coordinates(0, 0))));
+		}
+		long after = System.currentTimeMillis();
+		long result = after - before;
+		heap = new MinimumHeap(1000003);
+		long before2 = System.currentTimeMillis();
+		for (int i = 0; i < 1000000; i++) { // ten times larger
+			heap.insert(new AStarNode(new Node(new Coordinates(0, 0))));
+		}
+		long after2 = System.currentTimeMillis();
+		long result2 = after2 - before2;
+		assertTrue((result/result2<0.4));
 	}
 
 }
