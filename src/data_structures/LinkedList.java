@@ -14,8 +14,10 @@ public class LinkedList<T> implements List<T> {
 		head = null;
 		tail = null;
 	}
-
-	public void addAtTheBeginning(T insertee) {
+	/**
+	 * Adds a node to beginning 
+	 */
+	public void addToBeginning(T insertee) {
 		LinkedListNode<T> inserteeListT = new LinkedListNode<T>(insertee);
 		inserteeListT.setNext(head);
 		head = inserteeListT;
@@ -47,10 +49,9 @@ public class LinkedList<T> implements List<T> {
 		return fastForwardT.getNode();
 	}
 
-	public int getSize() {
-		return this.size;
-	}
-
+	/**
+	 * Removes first node from list and returns it
+	 */
 	public T delete() {
 		T returnee = get(0);
 		if (head != null) {

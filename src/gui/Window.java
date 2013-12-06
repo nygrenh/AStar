@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Frame;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
@@ -19,7 +18,7 @@ public class Window implements Runnable {
 
 	@Override
 	public void run() {
-		frame = new JFrame("A");
+		frame = new JFrame("A*");
 		dimension = new Dimension(1000, 1000);
 		frame.setPreferredSize(dimension);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

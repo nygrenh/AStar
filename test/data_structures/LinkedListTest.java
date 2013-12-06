@@ -2,7 +2,6 @@ package data_structures;
 
 import static org.junit.Assert.*;
 
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +17,7 @@ public class LinkedListTest {
 	@Test
 	public void anEmptyListIsEmpty() {
 		assertNull(linkedList.get(0));
-		assertEquals(0, linkedList.getSize());
+		assertEquals(0, linkedList.size());
 	}
 
 	@Test
@@ -29,7 +28,7 @@ public class LinkedListTest {
 		linkedList.add(n2);
 		assertEquals(n, linkedList.get(0));
 		assertEquals(n2, linkedList.get(1));
-		assertEquals(2, linkedList.getSize());
+		assertEquals(2, linkedList.size());
 	}
 
 	@Test
@@ -45,22 +44,22 @@ public class LinkedListTest {
 	public void addingAtTheBeginningWorks() {
 		Node n = new Node(new Coordinates(0, 0));
 		Node n2 = new Node(new Coordinates(0, 0));
-		linkedList.addAtTheBeginning(n2);
-		linkedList.addAtTheBeginning(n);
+		linkedList.addToBeginning(n2);
+		linkedList.addToBeginning(n);
 		assertEquals(n, linkedList.get(0));
 		assertEquals(n2, linkedList.get(1));
-		assertEquals(2, linkedList.getSize());
+		assertEquals(2, linkedList.size());
 	}
 	
 	@Test
 	public void mixedInsertWorks() {
 		Node n = new Node(new Coordinates(0, 0));
 		Node n2 = new Node(new Coordinates(0, 0));
-		linkedList.addAtTheBeginning(n2);
+		linkedList.addToBeginning(n2);
 		linkedList.add(n);
 		assertEquals(n2, linkedList.get(0));
 		assertEquals(n, linkedList.get(1));
-		assertEquals(2, linkedList.getSize());
+		assertEquals(2, linkedList.size());
 	}
 	
 	@Test

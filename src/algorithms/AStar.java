@@ -14,9 +14,6 @@ public class AStar {
 	/**
 	 * Finds a path between start and end
 	 * 
-	 * @param start
-	 * @param end
-	 * @param map
 	 * @return List, that contains the path
 	 */
 	public List<Node> findPath(Node start, Node end, Node[][] map) {
@@ -60,7 +57,10 @@ public class AStar {
 		}
 		return null;
 	}
-
+	/**
+	 * Generates help variables
+	 * @param map
+	 */
 	private void generateHelpMap(Node[][] map) {
 		helpMap = new AStarNode[map.length][map[0].length];
 		for (Node[] nodes : map) {
@@ -73,12 +73,7 @@ public class AStar {
 	}
 
 	/**
-	 * Calculates the moving cost between two Nodes
-	 * 
-	 * @param current
-	 *            .getNode()
-	 * @param neighbour
-	 * @return Double
+	 * Calculates moving cost between two Nodes
 	 */
 	private double movementCost(AStarNode current, AStarNode neighbour) {
 		double cost = 1;
@@ -91,11 +86,6 @@ public class AStar {
 
 	/**
 	 * Returns node n's neighbors
-	 * 
-	 * @param n
-	 * @param map
-	 *            Graph
-	 * @return
 	 */
 	private List<AStarNode> getNeighbours(AStarNode an) {
 		List<AStarNode> returnee = new LinkedList<AStarNode>();
@@ -146,7 +136,7 @@ public class AStar {
 		LinkedList<Node> returnee = new LinkedList<Node>();
 		AStarNode backTrackNode = getHelpNode(end);
 		while (backTrackNode != null) {
-			returnee.addAtTheBeginning(backTrackNode.getNode());
+			returnee.addToBeginning(backTrackNode.getNode());
 			backTrackNode = backTrackNode.cameFrom();
 		}
 		return returnee;
