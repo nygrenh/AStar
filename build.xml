@@ -1,0 +1,19 @@
+
+<project name="AStar" default="create_jar" basedir=".">
+  <property name="src" location="src"/>
+  <property name="bin" location="bin"/>
+
+  <target name="compile"
+        description="compile the source" >
+    <javac srcdir="${src}" destdir="${bin}" includeantruntime="false"/>
+  </target>
+
+  <target name="create_jar" depends="compile"
+        description="generate jarfile" >
+    <jar jarfile="AStar.jar" basedir="${bin}">
+        <manifest>
+        <attribute name="Main-Class" value="gui.Window"/>
+      </manifest>
+    </jar>
+  </target>
+</project>
