@@ -3,8 +3,15 @@
   <property name="src" location="src"/>
   <property name="bin" location="bin"/>
 
-  <target name="compile"
+    <target name="prepare"
+        description="clean up" >
+    <delete dir="${bin}"/>
+    <delete file="AStar.jar"/>
+  </target>
+
+  <target name="compile" depends="prepare"
         description="compile the source" >
+        <mkdir dir="${bin}"/>
     <javac srcdir="${src}" destdir="${bin}" includeantruntime="false"/>
   </target>
 
